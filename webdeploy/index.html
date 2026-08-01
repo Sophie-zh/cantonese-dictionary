@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>粤语字典</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<h1>粤语字典</h1>
+
+<input
+    id="input"
+    placeholder="请输入一个汉字">
+
+<button onclick="search()">
+查询
+</button>
+
+<hr>
+
+<p>
+<b>繁体：</b>
+<span id="traditional"></span>
+</p>
+
+<p>
+<b>粤拼：</b>
+<span id="jyutping"></span>
+</p>
+
+<p>
+<b>声部：</b>
+<span id="shengbu"></span>
+</p>
+
+<p>
+<b>韵部：</b>
+<span id="rhyme"></span>
+</p>
+
+<button onclick="speak()">
+🔊 粤语朗读
+</button>
+
+<script src="app.js"></script>
+
+</body>
+
+</html>

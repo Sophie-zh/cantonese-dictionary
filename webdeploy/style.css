@@ -1,0 +1,37 @@
+body{
+
+    width:500px;
+
+    margin:auto;
+
+    margin-top:50px;
+
+    font-family:Arial;
+
+}
+
+input{
+
+    width:250px;
+
+    font-size:20px;
+
+    padding:8px;
+
+}
+
+button{
+
+    font-size:18px;
+
+    padding:8px;
+
+    margin-top:10px;
+
+}
+
+p{
+
+    font-size:22px;
+
+}
