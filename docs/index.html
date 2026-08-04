@@ -5,19 +5,54 @@
 
 <meta charset="UTF-8">
 
-<title>粤语字典</title>
+<title>粤语读诗</title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="new_style.css">
 
 </head>
 
 <body>
 
-<h1>粤语字典</h1>
+<div class="container">
 
-<input
+<h1>
+    粤语读诗
+</h1>
+
+<h3 class="input-title">
+    请输入诗词
+</h3>
+
+<textarea 
     id="input"
-    placeholder="请输入一个汉字">
+    rows="4">
+</textarea>
+
+<details class="format-tip">
+
+    <summary>
+    格式说明
+    </summary>
+
+    <p>
+    每行最多两句，两句之间使用中文逗号分隔。每句只包含中文字符。
+    </p>
+
+    <p>单句：</p>
+    
+    <pre>
+    床前明月光
+    疑是地上霜
+    举头望明月
+    低头思故乡</pre>
+
+    <p>双句：</p>
+    
+    <pre>
+    朝辞白帝彩云间，千里江陵一日还
+    两岸猿声啼不住，轻舟已过万重山</pre>
+
+</details>
 
 <button onclick="search()">
 查询
@@ -25,29 +60,21 @@
 
 <hr>
 
-<p>
-<b>繁体：</b>
-<span id="traditional"></span>
-</p>
+<h3>繁体</h3>
 
-<p>
-<b>粤拼：</b>
-<span id="jyutping"></span>
-</p>
+<div id="traditional"></div>
 
-<p>
-<b>声部：</b>
-<span id="shengbu"></span>
-</p>
 
-<p>
-<b>韵部：</b>
-<span id="rhyme"></span>
-</p>
+<h3>粤拼</h3>
+
+<div id="jyutping"></div>
+
 
 <button onclick="speak()">
 🔊 粤语朗读
 </button>
+
+</div>
 
 <script src="app.js"></script>
 

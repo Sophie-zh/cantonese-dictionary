@@ -1,0 +1,283 @@
+/* 全局 */
+
+body {
+
+    margin: 0;
+
+    padding: 0;
+
+    min-height: 100vh;
+
+    background:
+        linear-gradient(
+            rgba(250,248,242,0.95),
+            rgba(250,248,242,0.95)
+        );
+
+    font-family:
+        "Noto Serif SC",
+        "Songti SC",
+        "STSong",
+        serif;
+
+    color: #333;
+
+}
+
+.container {
+
+    width:1000px;
+
+    max-width:90%;
+
+    margin:auto;
+
+}
+
+body > * {
+
+    max-width: 700px;
+
+}
+
+
+
+/* 标题 */
+
+h1 {
+
+    margin-top: 50px;
+
+    text-align: center;
+
+    font-size: 34px;
+
+    letter-spacing: 8px;
+
+    font-weight: normal;
+
+    color: #222;
+
+}
+
+
+/* 输入区域 */
+
+textarea {
+
+    display: block;
+
+    width: 600px;
+
+    max-width: 90vw;
+
+    margin: 30px auto 15px;
+
+    padding: 18px;
+
+    font-size: 22px;
+
+    line-height: 1.8;
+
+    background: rgba(255,255,255,0.75);
+
+    border: 1px solid #ccc;
+
+    border-radius: 12px;
+
+    resize: vertical;
+
+    font-family:
+        "KaiTi",
+        "STKaiti",
+        serif;
+
+}
+
+
+textarea:focus {
+
+    outline: none;
+
+    border-color: #888;
+
+}
+
+.input-title {
+
+    font-size:22px;
+
+    font-weight:normal;
+
+    margin-bottom:10px;
+
+}
+
+
+.format-tip {
+
+    width:600px;
+
+    max-width:90%;
+
+    margin:15px auto;
+
+    padding:15px 20px;
+
+    background:
+    rgba(255,255,255,0.5);
+
+    border-left:
+    4px solid #555;
+
+    color:#555;
+
+    font-size:15px;
+}
+
+.format-tip pre {
+    
+    margin: 5px 0;
+
+    font-family:
+    "KaiTi",
+    "STKaiti",
+    serif;
+
+    font-size:18px;
+
+    line-height:1.8;
+
+    white-space:pre-wrap;
+
+}
+
+
+
+/* 按钮 */
+
+button {
+
+
+    display: block;
+
+
+    margin: 15px auto;
+
+
+    padding: 10px 35px;
+
+
+    font-size: 18px;
+
+
+    background: #333;
+
+
+    color: white;
+
+
+    border: none;
+
+
+    border-radius: 25px;
+
+
+    cursor: pointer;
+
+
+    font-family: inherit;
+
+
+}
+
+
+button:hover {
+
+    background: #555;
+
+}
+
+
+
+/* 分隔线 */
+
+hr {
+
+    width: 80%;
+
+    border: none;
+
+    border-top: 1px solid #ddd;
+
+    margin: 35px auto;
+
+}
+
+
+
+/* 结果卡片 */
+
+h3 {
+
+    font-size: 22px;
+
+    font-weight: normal;
+
+    margin-left: 20px;
+
+    color: #555;
+
+}
+
+
+
+#traditional,
+#jyutping {
+
+
+    width: 600px;
+
+    max-width: 90vw;
+
+
+    margin: 10px auto 30px;
+
+
+    padding: 20px;
+
+
+    background:
+        rgba(255,255,255,0.65);
+
+
+    border-radius: 12px;
+
+
+    box-shadow:
+        0 4px 15px rgba(0,0,0,0.08);
+
+
+
+    white-space: pre-line;
+
+
+    font-size: 24px;
+
+
+    line-height: 2;
+
+
+}
+
+
+
+/* 粤拼稍小 */
+
+#jyutping {
+
+    font-size: 20px;
+
+    letter-spacing: 1px;
+
+}
