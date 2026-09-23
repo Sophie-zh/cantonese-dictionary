@@ -94,7 +94,6 @@ textarea {
 
 }
 
-
 textarea:focus {
 
     outline: none;
@@ -113,6 +112,9 @@ textarea:focus {
 
 }
 
+
+
+/* 提示区域 */
 
 .format-tip {
 
@@ -136,7 +138,7 @@ textarea:focus {
 }
 
 .format-tip pre {
-    
+
     margin: 5px 0;
 
     font-family:
@@ -158,36 +160,25 @@ textarea:focus {
 
 button {
 
-
     display: block;
-
 
     margin: 15px auto;
 
-
     padding: 10px 35px;
-
 
     font-size: 18px;
 
-
     background: #333;
-
 
     color: white;
 
-
     border: none;
-
 
     border-radius: 25px;
 
-
     cursor: pointer;
 
-
     font-family: inherit;
-
 
 }
 
@@ -231,21 +222,141 @@ h3 {
 }
 
 
+.result-wrapper {
 
-#traditional,
+    display:flex;
+
+    justify-content:center;
+
+    gap:20px;
+
+    width:100%;
+
+    margin:30px auto;
+
+}
+
+
+
+.result-box {
+
+    width:430px;
+
+    min-height:200px;
+
+    padding:20px;
+
+    background:
+    rgba(255,255,255,0.65);
+
+    border-radius:12px;
+
+    box-shadow:
+    0 4px 15px rgba(0,0,0,0.08);
+
+}
+
+
+
+.result-box h3 {
+
+    text-align:center;
+
+    font-size:22px;
+
+    font-weight:normal;
+
+    margin-top:0;
+
+    margin-bottom:15px;
+
+    color:#555;
+
+}
+
+
+
+/* 繁体，平仄 */
+
+
+#traditiional,
+#pingze {
+
+    font-family:
+    "Noto Serif SC",
+    "Songti SC",
+    "SimSun",
+    serif;
+
+
+    font-size:24px;
+
+    line-height:2;
+
+    white-space:pre-line;
+
+}
+
+
+.tooltip-text {
+
+    visibility: hidden;
+
+    position: absolute;
+
+    bottom: 120%;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    background: rgba(255, 255, 255, 0.85);
+
+    color: #333;
+
+    padding:6px 10px;
+
+    border-radius:6px;
+
+    font-size:16px;
+
+    white-space:nowrap;
+
+    z-index:20;
+
+}
+
+
+.char-tooltip:hover
+.tooltip-text {
+
+    visibility: visible;
+
+}
+
+
+.char-tooltip {
+
+    font-size: 22px;
+
+    line-height:2;
+
+    position: relative;
+
+    cursor: pointer;
+
+}
+
+
 #jyutping {
 
-
-    width: 600px;
+    width: 950px;
 
     max-width: 90vw;
 
-
     margin: 10px auto 30px;
 
-
     padding: 20px;
-
 
     background:
         rgba(255,255,255,0.65);
@@ -253,31 +364,23 @@ h3 {
 
     border-radius: 12px;
 
-
     box-shadow:
         0 4px 15px rgba(0,0,0,0.08);
 
-
-
     white-space: pre-line;
-
-
-    font-size: 24px;
-
 
     line-height: 2;
 
+    font-family:
+        "SF Mono",
+        "Menlo",
+        "Consolas",
+        "Roboto Mono",
+        monospace;
 
-}
 
+    font-size:14px;
 
-
-/* 粤拼稍小 */
-
-#jyutping {
-
-    font-size: 20px;
-
-    letter-spacing: 1px;
+    letter-spacing:1px;
 
 }
