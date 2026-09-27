@@ -32,6 +32,9 @@ function checkFormat(text){
 
     const chinesePattern = /^[\u4e00-\u9fff]+$/;
 
+    // 用来检查最后一句的最后一个字符
+    const legalEndChars = ["。", "！", "？"];
+
     for(const line of lines){
 
         if(line === ""){
@@ -40,16 +43,17 @@ function checkFormat(text){
 
         const parts = line.split("，");
 
-        // 超过一个逗号
-        if(parts.length > 2){
-            alert(`“${line}”，此句有多于一个逗号`);
-            return false;
-        }
 
         // 检查每一句是否纯中文
         for(let j = 0; j < parts.length; j++){
 
-            const sentence = parts[j].trim();
+            let sentence = parts[j].trim();
+
+            if(j === parts.length - 1){
+                if(legalEndChars.includes(sentence.trim().slice(-1))){
+                    sentence = sentence.trim().slice(0, -1);
+                }
+            }
 
             if(!chinesePattern.test(sentence)){
                 alert(`“${line}”，第 ${j+1} 句有非法字符`);
@@ -95,8 +99,46 @@ function checkPingze(readings){
 
     }
 
-    return final_pingze;
+    if(final_pingze === "平"){
+
+        return `<span class="ping">平</span>`;
+
+    }
+    else if(final_pingze === "仄"){
+
+        return `<span class="ze">仄</span>`;
+
+    }
+    else if(final_pingze === "疑"){
+
+        return `<span class="yi">疑</span>`;
+
+    }
+
 }
+
+
+// 检查粤拼平仄
+function checkJyutpingPingze(jyutping){
+
+    const ruPattern = ["k", "t", "p"];
+
+    // 这里可以实现平仄检查的逻辑
+
+
+    if((jyutping.slice(-1) === "1" || jyutping.slice(-1) === "4") && ! ruPattern.includes(jyutping.slice(-2, -1))){
+        
+        return "平";
+    
+    }
+    else{
+
+        return "仄";
+
+    }
+
+}
+
 
 
 // 生成拼音和声调的 HTML
@@ -133,6 +175,57 @@ function generateTraditionalHTML(item){
     `;
 
     return traditionalHTML;
+
+}
+
+
+// 生成粤拼注音的 HTML
+
+function generateJyutpingHTML(item){
+
+    const jyutping = item.jyutping[0];
+
+    let jyutpingPingze = checkJyutpingPingze(jyutping);
+
+    if(jyutpingPingze === "平"){
+
+        const jyutpingHTML = 
+        `
+        <span class="jyutping-cell">
+
+            <span class="jyutping-tone">
+                ${item.jyutping[0]}
+            </span>
+
+            <span class="jyutping-char">
+                <span class="ping">
+                ${item.traditional}
+                </span>
+            </span>
+        </span>
+        `;
+        return jyutpingHTML;
+
+    }
+    else {
+
+        const jyutpingHTML = 
+        `
+        <span class="jyutping-cell">
+
+            <span class="jyutping-tone">
+                ${item.jyutping[0]}
+            </span>
+
+            <span class="jyutping-char">
+                <span class="ze">
+                ${item.traditional}
+                </span>
+            </span>
+        </span>
+        `;
+        return jyutpingHTML;
+    }
 
 }
 
@@ -191,10 +284,17 @@ function search(){
 
         let pingze = "";
 
-        // 按逗号分成两句
-        const sentences = line.split("，");
+        // 按逗号分成若干句
+        let sentences = line.split("，");
 
-        for (const sentence of sentences) {
+        // 检查最后一句的最后一个字符
+        const legalEndChars = ["。", "！", "？"];
+        
+        if(legalEndChars.includes(sentences[sentences.length - 1].trim().slice(-1))){
+            sentences[sentences.length - 1] = sentences[sentences.length - 1].trim().slice(0, -1);
+        }
+
+        for (let sentence of sentences) {
 
             let sentenceTraditional = "";
 
@@ -204,7 +304,7 @@ function search(){
 
             let sentencePingze = "";
 
-            for (const ch of sentence) {
+            for (let ch of sentence) {
 
                 // 如果是繁体字，转化为简体再查
 
@@ -232,7 +332,7 @@ function search(){
                 }
                 else {
                     sentenceTraditional += item.traditional;
-                    sentenceJyutping += item.jyutping[0] + " ";
+                    sentenceJyutping += generateJyutpingHTML(item);
                     sentencePingze += checkPingze(item.readings);
                     sentenceTraditionalHTML += generateTraditionalHTML(item);
                 }
@@ -241,8 +341,8 @@ function search(){
             // 每句转换后重新加入逗号
             traditional += sentenceTraditional + "，";
             traditionalHTML += sentenceTraditionalHTML + "，";
-            jyutping += sentenceJyutping.trim() + "，";
-            pingze += sentencePingze.trim() + "，";
+            jyutping += sentenceJyutping + "，";
+            pingze += sentencePingze + "，";
         }
 
         // 去掉最后多余的逗号
@@ -250,6 +350,7 @@ function search(){
         traditional += "。";
         traditionalHTML = traditionalHTML.slice(0, -1);
         jyutping = jyutping.slice(0, -1);
+        jyutping += `<span class="line-break"></span>`;
         pingze = pingze.slice(0, -1);
 
         // 将转换后的每行加入数组
@@ -267,11 +368,11 @@ function search(){
 
     document
     .getElementById("jyutping")
-    .textContent = jyutpingLines.join("\n");
+    .innerHTML = jyutpingLines.join("<br>");
 
     document
     .getElementById("pingze")
-    .textContent = pingzeLines.join("\n");
+    .innerHTML = pingzeLines.join("<br>");
 
 }
 

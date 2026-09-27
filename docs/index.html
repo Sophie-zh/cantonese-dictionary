@@ -19,13 +19,11 @@
     粤语读诗
 </h1>
 
-<h3 class="input-title">
-    请输入诗词
-</h3>
 
 <textarea 
     id="input"
-    rows="4">
+    rows="4"
+    placeholder="请输入诗词…">
 </textarea>
 
 <details class="format-tip">
@@ -35,7 +33,7 @@
     </summary>
 
     <p>
-    每行最多两句，两句之间使用中文逗号分隔。不使用其他标点符号。每句只包含中文字符。
+    每句之间使用中文逗号分隔。不使用其他标点符号。每句只包含中文字符。
     </p>
 
     <p>单句：</p>
@@ -64,27 +62,76 @@
 
     <div class="result-box">
 
-        <h3>繁体</h3>
+        <h3>
+            繁体
+            
+            <span class="help-icon">
+                ?
+                <span class="help-tooltip">
+                    将您输入的诗词转换为对应的繁体字。
+                    如果简体字不具备对应的繁体字，则显示为原简体字。<br>
+                    将鼠标悬停在每个繁体字上，会显示该字的粤拼和平水韵韵别。<br>
+                    可能存在多个粤拼或平水韵韵别的情况。
+                </span>
+            </span>
+        </h3>
 
         <div id="traditional"></div>
+
+        <a href="traditional.html" class="result-button">
+            查看语料来源
+        </a>
+
 
     </div>
 
 
     <div class="result-box">
 
-        <h3>平仄</h3>
+        <h3>
+            平仄
+            <span class="help-icon">
+                ?
+                <span class="help-tooltip">
+                    显示每个字依据平水韵的平仄情况。<br>
+                    如果一个字在平水韵中属于多个韵别，
+                    韵别平仄情况同一时正常显示平仄，
+                    韵别的平仄情况不一致时，则显示为“疑”。
+                    当该字为新创造的简体字（如“她”），不存在对应的平水韵韵别时，
+                    则显示为“无”。
+                </span>
+            </span>
+        </h3>
 
         <div id="pingze"></div>
+
+        <a href="pingze.html" class="result-button">
+            更多格律知识
+        </a>
 
     </div>
 
 </div>
 
+<div class="jyutping-box">
 
-<h3>粤拼</h3>
+    <h3>
+        粤拼
+        <span class="help-icon">
+            ?
+            <span class="help-tooltip">
+                显示每个字的粤拼。
+                根据粤拼声调阳平，阳上，阳去，阴平，阴上，阴去以及入声
+                进行平仄的标注。<br>
+                如果有多个粤拼读音，随机取一个读音显示。
+                下方朗读按钮会播放最常见的一个粤语读音。
+            </span>
+        </span>
+    </h3>
 
-<div id="jyutping"></div>
+    <div id="jyutping" class="jyutping-content"></div>
+
+</div>
 
 
 <button onclick="speak()">
