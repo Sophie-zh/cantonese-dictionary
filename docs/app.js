@@ -1,3 +1,7 @@
+const legalEndChars = ["。", "！", "？", "：", "；", "，"];
+
+const chinesePattern = /^[\u4e00-\u9fff]+$/;
+
 let dictionary = {};
 
 let traditionalMap = {};
@@ -30,11 +34,6 @@ function checkFormat(text){
 
     const lines = text.split("\n");
 
-    const chinesePattern = /^[\u4e00-\u9fff]+$/;
-
-    // 用来检查最后一句的最后一个字符
-    const legalEndChars = ["。", "！", "？"];
-
     for(const line of lines){
 
         if(line === ""){
@@ -49,6 +48,12 @@ function checkFormat(text){
 
             let sentence = parts[j].trim();
 
+            if(sentence === ""){
+                continue;
+            }
+
+            // 最后一个字符可以是终止的中文符号
+
             if(j === parts.length - 1){
                 if(legalEndChars.includes(sentence.trim().slice(-1))){
                     sentence = sentence.trim().slice(0, -1);
@@ -58,6 +63,12 @@ function checkFormat(text){
             if(!chinesePattern.test(sentence)){
                 alert(`“${line}”，第 ${j+1} 句有非法字符`);
                 return false;
+            }
+
+            for (let ch of sentence) {
+                if (!dictionary[ch] && !traditionalMap[ch]) {
+                    alert(`“${line}”，第 ${j+1} 句的字“${ch}”可能是新简体字，无对应的字典项`);
+                }
             }
         }
     }
@@ -162,14 +173,9 @@ function generateTraditionalHTML(item){
     <span class="char-tooltip">
         ${item.traditional}
         <span class="tooltip-text">
-            <div>
                 粤拼：${jyutping}
-            </div>
-            <div>
                 韵部：
-                <br>
                 ${rhyme}
-            </div>
         </span>
     </span>
     `;
@@ -276,6 +282,10 @@ function search(){
 
     for(const line of lines){
 
+        if(line === ""){
+            continue;
+        }
+
         let traditional = "";
 
         let traditionalHTML = "";
@@ -285,16 +295,24 @@ function search(){
         let pingze = "";
 
         // 按逗号分成若干句
-        let sentences = line.split("，");
-
-        // 检查最后一句的最后一个字符
-        const legalEndChars = ["。", "！", "？"];
+        const sentences = line.split("，");
         
-        if(legalEndChars.includes(sentences[sentences.length - 1].trim().slice(-1))){
-            sentences[sentences.length - 1] = sentences[sentences.length - 1].trim().slice(0, -1);
-        }
 
-        for (let sentence of sentences) {
+        for(let j = 0; j < sentences.length; j++){
+
+            let sentence = sentences[j].trim();
+
+            if(sentence === ""){
+                continue;
+            }
+
+            // 检查最后一句的最后一个字符
+
+            if(j === sentences.length - 1){
+                if(legalEndChars.includes(sentence.trim().slice(-1))){
+                    sentence = sentence.trim().slice(0, -1);
+                }
+            }
 
             let sentenceTraditional = "";
 
@@ -318,8 +336,20 @@ function search(){
                 const item = dictionary[simplified_ch];
                 if (!item) {
                     sentenceTraditional += simplified_ch;
-                    sentenceJyutping += "???" + " ";
-                    sentencePingze += "无";
+                    sentenceJyutping += 
+                    `
+                    <span class="jyutping-cell">
+                        <span class="jyutping-tone">
+                            ???
+                        </span>
+                        <span class="jyutping-char">
+                            <span class="yi">
+                            ${simplified_ch}
+                            </span>
+                        </span>
+                    </span>
+                    `;
+                    sentencePingze += `<span class="yi">无</span>`;
                     sentenceTraditionalHTML += 
                     `
                     <span class="char-tooltip">
@@ -413,3 +443,66 @@ function speak(){
     speechSynthesis.speak(u);
 
 }
+
+
+
+// 单字提示
+
+const globalTooltip =
+    document.getElementById("global-tooltip");
+
+
+document.addEventListener("mouseover", function(event) {
+
+    const char = event.target.closest(".char-tooltip");
+
+    if (!char) {
+        return;
+    }
+
+    const tooltipText =
+        char.querySelector(".tooltip-text");
+
+    if (!tooltipText) {
+        return;
+    }
+
+
+    // 获取韵部文字
+    globalTooltip.textContent = tooltipText.textContent.trim();
+
+
+    // 获取当前汉字的位置
+    const rect = char.getBoundingClientRect();
+
+
+    // 先显示，以便取得 tooltip 的宽高
+    globalTooltip.classList.add("show");
+
+
+    const tooltipRect = globalTooltip.getBoundingClientRect();
+
+
+    // 放在汉字正上方
+    const left = rect.left + rect.width / 2 - tooltipRect.width / 2;
+
+    const top = rect.top - tooltipRect.height - 8;
+
+    globalTooltip.style.left = left + "px";
+
+    globalTooltip.style.top = top + "px";
+
+});
+
+document.addEventListener("mouseout", function(event) {
+
+    const char =
+        event.target.closest(".char-tooltip");
+
+    if (!char) {
+        return;
+    }
+
+    globalTooltip.classList.remove("show");
+
+});

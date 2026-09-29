@@ -56,6 +56,47 @@ h1 {
 }
 
 
+
+/* ===================== 网站简介 ===================== */
+
+.intro {
+    width: 600px;
+    max-width: 90%;
+
+    margin: 18px auto 28px;
+
+    text-align: center;
+}
+
+
+.intro-main {
+    margin: 0 0 10px;
+
+    font-size: 18px;
+
+    letter-spacing: 3px;
+
+    color: #555;
+}
+
+
+.intro-sub {
+
+    margin: 0;
+
+    font-size: 15px;
+
+    line-height: 1.8;
+
+    letter-spacing: 1px;
+
+    color: #888;
+}
+
+
+
+
+
 /* ===================== 输入区域 ===================== */
 
 textarea {
@@ -223,7 +264,7 @@ h3 {
 
     width:430px;
 
-    height: 250px;
+    height: 270px;
 
     padding:20px;
 
@@ -420,6 +461,8 @@ h3 {
 
     white-space: normal;
 
+    margin-bottom: 15px;
+
 }
 
 #pingze
@@ -447,6 +490,8 @@ h3 {
 
     white-space:pre-line;
 
+    margin-bottom: 15px;
+
 }
 
 
@@ -470,7 +515,9 @@ h3 {
 
 .tooltip-text {
 
-    visibility: hidden;
+    display: none;
+
+    /* visibility: hidden;
 
     position: absolute;
 
@@ -491,9 +538,9 @@ h3 {
 
     font-size:16px;
 
-    white-space:nowrap;
+    white-space:nowrap; */
 
-    z-index:20;
+    /* z-index:20; */
 
 }
 
@@ -501,7 +548,9 @@ h3 {
 .char-tooltip:hover
 .tooltip-text {
 
-    visibility: visible;
+    display: none;
+
+    /* visibility: visible; */
 
 }
 
@@ -520,6 +569,51 @@ h3 {
 
 
 
+#global-tooltip {
+    position: fixed;
+
+    visibility: hidden;
+    opacity: 0;
+
+    padding: 6px 10px;
+
+    background: rgba(255, 255, 255, 0.75);
+
+    color: #333;
+
+    border-radius: 6px;
+
+    box-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.15);
+
+    font-family:
+        "Noto Serif SC",
+        "Songti SC",
+        serif;
+
+    font-size: 16px;
+
+    white-space: pre-line;
+
+    /* 限制宽度 */
+    width: max-content;
+    max-width: 220px;
+
+    pointer-events: none;
+
+    z-index: 9999;
+
+    transition: opacity 0.15s ease;
+}
+
+
+#global-tooltip.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+
+
 /* ===================== 粤拼 ===================== */
 
 
@@ -529,7 +623,7 @@ h3 {
 
     width: 1000px;
 
-    min-height:200px;
+    height: 260px;
 
     max-width: 90vw;
 
@@ -547,7 +641,11 @@ h3 {
         0 4px 15px rgba(0,0,0,0.08);
 
 
-    line-height: 1.5;
+    line-height: 1;
+
+    display: flex;
+
+    flex-direction: column;
 
 }
 
@@ -571,6 +669,12 @@ h3 {
 
 
 .jyutping-content {
+    flex: 1;
+
+    min-height: 0;
+
+    overflow-y: auto;
+
     display: flex;
 
     flex-wrap: wrap;
@@ -579,9 +683,9 @@ h3 {
 
     row-gap: 0;
 
-    white-space: normal;
+    align-content: flex-start;
 
-    line-height: 1.0;
+    margin-bottom: 15px
 }
 
 
