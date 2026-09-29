@@ -506,3 +506,73 @@ document.addEventListener("mouseout", function(event) {
     globalTooltip.classList.remove("show");
 
 });
+
+document.addEventListener("click", function(event) {
+
+    const char = event.target.closest(".char-tooltip");
+
+    // 点击的不是繁体字，就关闭 tooltip
+    if (!char) {
+        globalTooltip.classList.remove("show");
+        return;
+    }
+
+    const tooltipText =
+        char.querySelector(".tooltip-text");
+
+    if (!tooltipText) {
+        return;
+    }
+
+    globalTooltip.textContent =
+        tooltipText.textContent.trim();
+
+    const rect =
+        char.getBoundingClientRect();
+
+    // 先显示，才能取得 tooltip 尺寸
+    globalTooltip.classList.add("show");
+
+    const tooltipRect =
+        globalTooltip.getBoundingClientRect();
+
+    let left =
+        rect.left
+        + rect.width / 2
+        - tooltipRect.width / 2;
+
+    let top =
+        rect.top
+        - tooltipRect.height
+        - 8;
+
+
+    // 防止左边超出手机屏幕
+    if (left < 8) {
+        left = 8;
+    }
+
+
+    // 防止右边超出手机屏幕
+    if (left + tooltipRect.width > window.innerWidth - 8) {
+
+        left =
+            window.innerWidth
+            - tooltipRect.width
+            - 8;
+    }
+
+
+    // 上面空间不足，就显示在汉字下面
+    if (top < 8) {
+        top = rect.bottom + 8;
+    }
+
+
+    globalTooltip.style.left =
+        left + "px";
+
+    globalTooltip.style.top =
+        top + "px";
+
+});
